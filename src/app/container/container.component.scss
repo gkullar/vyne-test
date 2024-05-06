@@ -1,0 +1,34 @@
+@import 'functions/breakpoints-config';
+
+$breakpoints: app-breakpoints-config();
+
+@mixin max-width($size) {
+  max-width: map-get($breakpoints, $size);
+}
+
+:host {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  &.xs {
+    @include max-width(xs);
+  }
+
+  &.sm {
+    @include max-width(sm);
+  }
+
+  &.md {
+    @include max-width(md);
+  }
+
+  &.lg {
+    @include max-width(lg);
+  }
+
+  &.xl {
+    @include max-width(xl);
+  }
+}

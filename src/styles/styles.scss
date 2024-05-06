@@ -1,6 +1,9 @@
 @use '@angular/material' as mat;
-@import 'palette';
 
+@import 'mixins/normalize';
+@import 'variables/palette';
+
+@include normalize;
 @include mat.core;
 
 $vyne-test-primary: mat.define-palette($primary-palette);
@@ -20,6 +23,10 @@ $vyne-test-theme: mat.define-light-theme(
 
 @include mat.all-component-themes($vyne-test-theme);
 
+html {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
@@ -27,5 +34,23 @@ body {
 
 body {
   margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+  --mat-app-background-color: #fafafc;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.mat-mdc-snack-bar-container {
+  &.error {
+    --mdc-snackbar-container-color: var(--mat-form-field-error-text-color);
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
 }

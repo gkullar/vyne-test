@@ -1,0 +1,13 @@
+@import '../functions/breakpoints-config';
+
+// mixin to manage responsive breakpoints
+@mixin respond-to($breakpoint, $breakpoints: app-breakpoints-config()) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "No value could be retreived from `#{breakpoint}`."
+        + "Available breakpoints are #{map-keys($breakpoints)}.";
+  }
+}

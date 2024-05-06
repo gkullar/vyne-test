@@ -1,0 +1,50 @@
+@import 'mixins/respond-to';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  flex-shrink: 0;
+  z-index: 1;
+
+  app-container {
+    display: flex;
+  }
+
+  .logo {
+    max-width: 100%;
+    max-height: 32px;
+  }
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 24px auto;
+    padding: 0 24px;
+
+    @include respond-to(md) {
+      margin: 48px auto;
+    }
+  }
+
+  footer {
+    flex-shrink: 0;
+    background-color: #f3f2f7;
+    padding: 24px;
+    text-align: center;
+  }
+}
