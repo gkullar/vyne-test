@@ -1,0 +1,31 @@
+@use '@angular/material' as mat;
+@import 'palette';
+
+@include mat.core;
+
+$vyne-test-primary: mat.define-palette($primary-palette);
+$vyne-test-accent: mat.define-palette($secondary-palette);
+$vyne-test-warn: mat.define-palette(mat.$red-palette);
+$vyne-test-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $vyne-test-primary,
+      accent: $vyne-test-accent,
+      warn: $vyne-test-warn
+    ),
+    typography: mat.define-typography-config(),
+    density: 0
+  )
+);
+
+@include mat.all-component-themes($vyne-test-theme);
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
