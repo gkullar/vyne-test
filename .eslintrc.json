@@ -1,9 +1,12 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["**/tsconfig.json", "**/tsconfig.spec.json"]
+      },
       "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -31,7 +34,24 @@
           }
         ],
         "@typescript-eslint/no-explicit-any": "error",
-        "lines-between-class-members": ["error", "always"]
+        "lines-between-class-members": ["error", "always"],
+        "import/no-unresolved": "off",
+        "import/order": [
+          "error",
+          {
+            "groups": ["builtin", "external", "internal"],
+            "newlines-between": "always",
+            "alphabetize": { "order": "asc" },
+            "pathGroups": [
+              {
+                "pattern": "@angular/**",
+                "group": "external",
+                "position": "before"
+              }
+            ],
+            "pathGroupsExcludedImportTypes": []
+          }
+        ]
       }
     },
     {

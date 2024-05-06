@@ -1,8 +1,3 @@
 {
-  "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
-  "rules": {
-    "declaration-block-trailing-semicolon": "always",
-    "no-descending-specificity": null,
-    "scss/no-global-function-names": null
-  }
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"]
 }
