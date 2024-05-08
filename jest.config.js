@@ -12,6 +12,10 @@ module.exports = {
   testTimeout: 20000,
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
+  moduleNameMapper: {
+    '@/(.*)': '<rootDir>/src/app/$1',
+    '@env/(.*)': '<rootDir>/src/environments/$1'
+  },
   transform: {
     '^.+\\.(ts|js|html|svg)$': [
       'jest-preset-angular',
