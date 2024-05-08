@@ -1,0 +1,35 @@
+@if (filtersTrigger$ | async) {}
+
+<form [formGroup]="form" autocomplete="off" novalidate>
+  <mat-form-field color="accent">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      @for (status of statuses | keyvalue; track status) {
+        <mat-option [value]="status.value">{{ status.key }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field color="accent">
+    <mat-label>Created date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate formControlName="createdAtStart" placeholder="DD/MM/YYYY" />
+      <input matEndDate formControlName="createdAtEnd" placeholder="DD/MM/YYYY" />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="picker" />
+    <mat-date-range-picker #picker />
+
+    @if (form.controls.createdAtStart.errors) {
+      <mat-error>Please provide a valid start date</mat-error>
+    }
+    @if (form.controls.createdAtEnd.errors) {
+      <mat-error>Please provide a valid end date</mat-error>
+    }
+  </mat-form-field>
+
+  @if (hasFilters) {
+    <button mat-stroked-button color="accent" type="button" (click)="onClearFilters()">
+      Clear
+    </button>
+  }
+</form>

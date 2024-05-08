@@ -1,0 +1,61 @@
+<div class="table-responsive">
+  <table mat-table [dataSource]="data">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="currency">
+      <mat-header-cell *matHeaderCellDef>Currency</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.currency }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.amount | number: '1.2-2' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-icon class="material-icons-outlined">{{ element.status | statusIcon }}</mat-icon>
+        {{ element.status }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef>Created</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.createdAt | date: 'medium' }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns" />
+    <mat-row *matRowDef="let row; columns: displayedColumns" />
+
+    <tr class="mat-mdc-row" *matNoDataRow>
+      <td class="mat-mdc-cell" colspan="100%">
+        @if (!isLoading) {
+          No transactions found
+        }
+      </td>
+    </tr>
+  </table>
+</div>
+
+<mat-paginator
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [length]="length"
+  hidePageSize="true"
+  (page)="pageChanged.emit($event)"
+  showFirstLastButtons
+  aria-label="Select page of transactions"
+/>
+
+@if (isLoading) {
+  <mat-progress-bar mode="query" color="accent" data-testId="progress-bar" />
+}

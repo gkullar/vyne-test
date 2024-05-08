@@ -1,0 +1,20 @@
+<app-container>
+  <h1>Payments</h1>
+  <p>Please see below for a list of transactions.</p>
+
+  @if (store.vm$ | async; as vm) {
+    <app-payments-filters
+      [hasFilters]="vm.hasFilters"
+      (submitFilters)="store.onFiltersChanged($event)"
+      (clearFilters)="store.onClearFilters()"
+    />
+    <app-payments-list
+      [data]="vm.data?.items || []"
+      [pageIndex]="vm.data?.currentPage || 0"
+      [pageSize]="vm.data?.pageSize || 0"
+      [length]="vm.data?.totalNumberOfItems || 0"
+      [isLoading]="vm.loading || false"
+      (pageChanged)="store.onPageChanged($event)"
+    />
+  }
+</app-container>

@@ -1,0 +1,30 @@
+@import 'mixins/respond-to';
+
+:host {
+  display: block;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  @include respond-to(sm) {
+    display: block;
+  }
+}
+
+mat-form-field {
+  margin: 16px 0;
+
+  &:last-of-type {
+    margin-bottom: 24px;
+  }
+
+  @include respond-to(sm) {
+    margin: 0 16px 0 0;
+
+    &:last-of-type {
+      margin-bottom: auto;
+    }
+  }
+}
