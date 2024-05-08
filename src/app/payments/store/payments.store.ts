@@ -68,6 +68,7 @@ export class PaymentsStore extends ComponentStore<State> {
           this.setState((state) => ({
             ...state,
             loading: true,
+            error: INITIAL_STATE.error,
             currentPagingParams: { ...(pagingParams || state.currentPagingParams) },
             currentFilterParams: { ...(filterParams || state.currentFilterParams) }
           }))
