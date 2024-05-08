@@ -34,6 +34,10 @@
           }
         ],
         "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+        ],
         "lines-between-class-members": ["error", "always"],
         "import/no-unresolved": "off",
         "import/order": [
