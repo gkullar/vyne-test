@@ -37,7 +37,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns" />
 
     <tr class="mat-mdc-row" *matNoDataRow>
-      <td class="mat-mdc-cell" colspan="100%">
+      <td class="mat-mdc-cell">
         @if (!isLoading) {
           No transactions found
         }
