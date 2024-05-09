@@ -14,9 +14,19 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## Lint
+
+Run `npm run lint:all` to lint TypeScript and Scss files. This will also check perform a prettier check on code styling.
+
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io/) and watch for file changes.
+
+Test coverage output will be stored in the `coverage` directory.
+
+## Committing code
+
+Run `npm run commit` to commit code using the [Commitizen CLI](https://github.com/commitizen/cz-cli) to enforce commit message conventions in [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format.
 
 ## Further help
 
