@@ -26,13 +26,7 @@ import { paymentTransactionStatusIcon } from '../utils';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentsListComponent {
-  @Input() data: PaginatedPaymentTransactions['items'];
-
-  @Input() pageIndex: number;
-
-  @Input() pageSize: number;
-
-  @Input() length: number;
+  @Input() data: PaginatedPaymentTransactions;
 
   @Input() isLoading: boolean;
 

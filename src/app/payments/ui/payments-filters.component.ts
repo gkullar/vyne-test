@@ -8,9 +8,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
-import { distinctUntilChanged, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 
 import { PaymentTransactionStatus, PaymentTransactionsFilters } from '../models';
+import { objectHasValue } from '@/utils';
 
 const DATE_FORMAT = {
   parse: {
@@ -65,13 +66,16 @@ export class PaymentsFiltersComponent {
 
   readonly filtersTrigger$ = this.form.valueChanges.pipe(
     distinctUntilChanged(),
+    debounceTime(100),
+    filter((formValue) => objectHasValue(formValue)),
     tap((formValue) => this.form.valid && this.submitFilters.emit(formValue))
   );
 
   constructor(private fb: FormBuilder) {}
 
   onClearFilters() {
-    this.form.reset();
+    this.form.reset({});
+
     this.clearFilters.emit();
   }
 }

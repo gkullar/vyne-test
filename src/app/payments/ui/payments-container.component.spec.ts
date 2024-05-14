@@ -8,16 +8,10 @@ import { of } from 'rxjs';
 
 import { PaymentsContainerComponent } from './payments-container.component';
 import { MOCK_PAGINATED_PAYMENTS } from '../mocks';
-import { PaginatedPaymentTransactions, PaymentTransactionStatus } from '../models';
-import { PaymentsStore } from '../store';
+import { PaymentTransactionStatus } from '../models';
+import { INITIAL_STATE, State, PaymentsStore } from '../store';
 
-interface SetupProps {
-  data?: PaginatedPaymentTransactions;
-  loading?: boolean;
-  hasFilters?: boolean;
-}
-
-const setup = async ({ data, loading, hasFilters }: SetupProps) => {
+const setup = async ({ data, loading, hasFilters }: Partial<State>) => {
   const onPageChangedMockFn = jest.fn();
   const onFiltersChangedMockFn = jest.fn();
   const onClearFilters = jest.fn();
@@ -29,15 +23,17 @@ const setup = async ({ data, loading, hasFilters }: SetupProps) => {
       onFiltersChanged: onFiltersChangedMockFn,
       onClearFilters: onClearFilters,
       vm$: of({
-        data: data || undefined,
-        loading: loading || false,
-        error: undefined,
-        hasFilters: hasFilters || false
+        ...INITIAL_STATE,
+        data: data || INITIAL_STATE.data,
+        loading: loading || INITIAL_STATE.loading,
+        hasFilters: hasFilters || INITIAL_STATE.hasFilters
       })
     })
   });
 
-  const user = userEvent.setup();
+  const user = userEvent.setup({
+    advanceTimers: (delay) => jest.advanceTimersByTime(delay)
+  });
 
   const renderResult = await render(PaymentsContainerComponent, {
     imports: [HttpClientTestingModule]
@@ -53,6 +49,15 @@ const setup = async ({ data, loading, hasFilters }: SetupProps) => {
 };
 
 describe('PaymentsContainerComponent', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
   it('renders the row data', async () => {
     await setup({ data: MOCK_PAGINATED_PAYMENTS });
 
@@ -65,6 +70,8 @@ describe('PaymentsContainerComponent', () => {
     await user.click(screen.getByLabelText('Status'));
 
     await user.click(screen.getByRole('option', { name: 'Completed' }));
+
+    jest.runOnlyPendingTimers();
 
     expect(onFiltersChangedMockFn).toHaveBeenCalledWith({
       createdAtEnd: null,

@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <table mat-table [dataSource]="data">
+  <table mat-table [dataSource]="data.items">
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
@@ -47,9 +47,9 @@
 </div>
 
 <mat-paginator
-  [pageIndex]="pageIndex"
-  [pageSize]="pageSize"
-  [length]="length"
+  [pageIndex]="data.currentPage"
+  [pageSize]="data.pageSize"
+  [length]="data.totalNumberOfItems"
   hidePageSize="true"
   (page)="pageChanged.emit($event)"
   showFirstLastButtons

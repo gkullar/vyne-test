@@ -9,11 +9,8 @@
       (clearFilters)="store.onClearFilters()"
     />
     <app-payments-list
-      [data]="vm.data?.items || []"
-      [pageIndex]="vm.data?.currentPage || 0"
-      [pageSize]="vm.data?.pageSize || 0"
-      [length]="vm.data?.totalNumberOfItems || 0"
-      [isLoading]="vm.loading || false"
+      [data]="vm.data"
+      [isLoading]="vm.loading"
       (pageChanged)="store.onPageChanged($event)"
     />
   }
